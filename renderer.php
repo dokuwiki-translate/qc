@@ -216,7 +216,7 @@ class renderer_plugin_qc extends Doku_Renderer
         // calculate link width
         $a = explode(':', getNS($ID));
         $b = explode(':', getNS($id));
-        while (isset($a[0]) && $a[0] === $b[0]) {
+        while (isset($a[0], $b[0]) && $a[0] === $b[0]) {
             array_shift($a);
             array_shift($b);
         }
