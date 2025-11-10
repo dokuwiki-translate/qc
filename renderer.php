@@ -44,7 +44,8 @@ class renderer_plugin_qc extends Doku_Renderer
             'manyhr' => 0,
             'manybr' => 0,
             'longformat' => 0,
-            'multiformat' => 0
+            'multiformat' => 0,
+            'nobacklink' => 0
         ],
     ];
 
