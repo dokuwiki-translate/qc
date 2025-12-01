@@ -44,7 +44,8 @@ class renderer_plugin_qc extends Doku_Renderer
             'manyhr' => 0,
             'manybr' => 0,
             'longformat' => 0,
-            'multiformat' => 0
+            'multiformat' => 0,
+            'nobacklink' => 0
         ],
     ];
 
@@ -66,7 +67,8 @@ class renderer_plugin_qc extends Doku_Renderer
         // get author info
         $changelog = new PageChangeLog($ID);
         $revs = $changelog->getRevisions(0, 10000); //FIXME find a good solution for 'get ALL revisions'
-        $revs[] = $meta['last_change']['date'];
+        $lastChange = $meta['last_change'] ?? null;
+        $revs[] = is_array($lastChange) ? ($lastChange['date'] ?? []) : [];
         $this->docArray['changes'] = count($revs);
         foreach ($revs as $rev) {
             $info = $changelog->getRevisionInfo($rev);
@@ -214,7 +216,7 @@ class renderer_plugin_qc extends Doku_Renderer
         // calculate link width
         $a = explode(':', getNS($ID));
         $b = explode(':', getNS($id));
-        while (isset($a[0]) && $a[0] === $b[0]) {
+        while (isset($a[0], $b[0]) && $a[0] === $b[0]) {
             array_shift($a);
             array_shift($b);
         }
